@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>View Task</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="topnav">
+  <a class="active" th:href="@{/main-page}">Home</a>
+  <a th:href="@{/users}">Users List</a>
+  <a th:href="@{/tasks}">Tasks List</a>
+  <a th:href="@{/categories}">Categories List</a>
+  <a th:href="@{/showFormForUpdate/{id}(id=${user.userId})}">Update my account</a>
+  <a th:href="@{/login}">Log Out</a>
+</div>
+
+<div class="container">
+
+  <div class="header-container">
+    <h1>Task Details</h1>
+  </div>
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Title:</h3>
+      <p th:text="${task.title}"></p>
+    </div>
+
+    <div class="col-md-6">
+      <h3>Description:</h3>
+      <p th:text="${task.description}"></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Due Date:</h3>
+      <p th:text="${task.dueDate}"></p>
+    </div>
+
+    <div class="col-md-6">
+      <h3>Priority:</h3>
+      <p th:text="${task?.priority}"></p>
+    </div>
+  </div>
+
+    <div class="col-md-6">
+      <h3>Status:</h3>
+      <p th:text="${task?.status}"></p>
+    </div>
+  </div>
+
+  <div class="row">
+      <h3>Category:</h3>
+      <p th:text="${task?.category?.name}"></p>
+  </div>
+
+  <div class="row">
+      <h3>User:</h3>
+      <p th:text="${task?.user?.username}"></p>
+  </div>
+
+  <div class="my-3">
+    <a th:href="@{/tasks}" class="btn btn-primary">Back to Task List</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Tasks Management System</title>
+
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="topnav">
+  <a class="active" th:href="@{/main-page}">Home</a>
+  <a th:href="@{/users}">Users List</a>
+  <a th:href="@{/tasks}">Tasks List</a>
+  <a th:href="@{/categories}">Categories List</a>
+  <a th:href="@{/showFormForUpdate/{id}(id=${user.userId})}">Update my account</a>
+  <a th:href="@{/login}">Log Out</a>
+</div>
+<div class="container">
+  <div class="header-container">
+    <h1>Task Management System</h1>
+  </div>
+
+  <hr>
+  <h2> Update Task</h2>
+
+  <form action="#" th:action="@{/saveTask}" th:object="${task}" method="POST">
+
+    <input type="hidden" th:field="*{taskId}" />
+
+    <input type="text" th:field="*{title}" placeholder="Title" class="form-control mb-4 col-4">
+
+    <input type="text" th:field="*{description}" placeholder="Description" class="form-control mb-4 col-4">
+
+    <label for="task-due-date">Due Date:</label>
+
+    <input type="date" th:field="*{dueDate}" th:value="${task.dueDate != null ? #temporals.format(task.dueDate, 'yyyy-MM-dd') : ''}" id="task-due-date"/>
+
+    <label for="task-priority">Priority:</label>
+    <select id="task-priority" th:field="*{priority}">
+      <option value="low" th:text="'Low'">Low</option>
+      <option value="medium" th:text="'Medium'">Medium</option>
+      <option value="high" th:text="'High'">High</option>
+    </select>
+
+    <label for="task-status">Status:</label>
+    <select id="task-status" th:field="*{status}">
+      <option value="in process" th:text="'In Process'">In Process</option>
+      <option value="done" th:text="'Done'">Done</option>
+    </select>
+
+    <button type="submit" class="btn btn-info col-2"> Update Task </button>
+  </form>
+</div>
+
+<script>
+  const dueDateInput = document.getElementById("task-due-date");
+  dueDateInput.addEventListener("input", function () {
+    const today = new Date().toISOString().split("T")[0];
+    if (this.value < today) {
+      alert("Due date must not be in the past.");
+      this.value = today;
+    }
+  });
+</script>
+
+
+</body>
+</html>

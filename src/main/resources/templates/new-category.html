@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Category Management System</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="topnav">
+  <a class="active" th:href="@{/main-page}">Home</a>
+  <a th:href="@{/users}">Users List</a>
+  <a th:href="@{/tasks}">Tasks List</a>
+  <a th:href="@{/categories}">Categories List</a>
+  <a th:href="@{/showFormForUpdate/{id}(id=${user.userId})}">Update my account</a>
+  <a th:href="@{/login}">Log Out</a>
+</div>
+<div class="container">
+
+  <div class="header-container">
+    <h1>Category Management System</h1>
+  </div>
+  <hr>
+  <h2>Save Category</h2>
+
+  <form action="#" th:action="@{/saveCategory}" th:object="${category}" method="POST">
+    <input type="text" th:field="*{name}" placeholder="Name" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{description}" placeholder="Description" class="form-control mb-4 col-4">
+    <button type="submit" class="btn btn-info col-2"> Save Category </button>
+  </form>
+</div>
+</body>
+</html>
