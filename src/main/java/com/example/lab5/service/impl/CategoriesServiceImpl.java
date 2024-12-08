@@ -14,19 +14,32 @@ public class CategoriesServiceImpl implements CategoriesService {
 
     private final CategoriesRepository categoriesRepository;
 
+    // CONSTRUCTOR
     public CategoriesServiceImpl(CategoriesRepository categoriesRepository) {
         this.categoriesRepository = categoriesRepository;
     }
+
+
+    // METHOD TO GET THE LIST OF ALL CATEGORIES
     @Override
     public List<Categories> getAllCategories() {
         return categoriesRepository.findAllWithTasks();
     }
 
+
+    @Override
+    public Categories getCategoryById(Long id) {
+        return categoriesRepository.findByCategoryId(id);
+    }
+
+    // METHOD TO SAVE NEW CATEGORIES
     @Override
     public void saveCategories(Categories categories) {
         this.categoriesRepository.save(categories);
     }
 
+
+    // FIND AND GET CATEGORIES BY ID
     @Override
     public Categories getCategoriesById(Long id) {
         Optional<Categories> cat = categoriesRepository.findById(id);
@@ -34,11 +47,13 @@ public class CategoriesServiceImpl implements CategoriesService {
         if(cat.isPresent()) {
             catn = cat.get();
         } else {
-            throw new RuntimeException("User not found for id " + id);
+            throw new RuntimeException("Categories not found for id " + id);
         }
         return catn;
     }
 
+
+    // DELETE CATEGORY
     @Override
     public void deleteCategoryById(Long id) {
         this.categoriesRepository.deleteById(id);

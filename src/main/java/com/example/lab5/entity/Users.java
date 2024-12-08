@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.Date;
@@ -41,24 +42,26 @@ public class Users{
     @Column(name="createdAt")
     private Date createdAt;
 
-//    @Column(name="role")
-//    @Enumerated(EnumType.STRING)
-//    private Role role; // например, ROLE_USER или ROLE_ADMIN
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Tasks> tasks;
 
-//    @ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name="users_roles",
-//            joinColumns = @JoinColumn(name="user_id", referencedColumnName = "userId"),
-//            inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName = "roleId")
-//    )
-//    private Collection<Role> roles;
+    @Column(name = "role")
+    private String role;
 
+    @Column(name = "profile_photo", nullable = true)
+    private String profilePhoto = "/uploads/default-profile-picture.webp";
+
+    @Column(name = "reset_token")
+    private String resetToken;
+
+
+    // MARK THE METHOD THAT EXECUTE BEFORE THE ENTITY IS PERSISTED
     @PrePersist
     protected void onCreate() {
         this.createdAt = new Date();
+//        if (this.profilePhoto == null || this.profilePhoto.isEmpty()) {
+//            this.profilePhoto = "/uploads/default-profile-picture.webp";
+//        }
     }
 
 }

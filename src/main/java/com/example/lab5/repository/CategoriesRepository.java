@@ -10,6 +10,9 @@ import java.util.List;
 @Repository
 public interface CategoriesRepository extends JpaRepository<Categories, Long> {
 
+    // FIND CATEGORIES WITH TASKS
     @Query("SELECT c FROM Categories c LEFT JOIN FETCH c.tasks")
     List<Categories> findAllWithTasks();
+
+    Categories findByCategoryId(Long categoryId);
 }

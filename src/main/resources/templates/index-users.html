@@ -11,8 +11,8 @@ xmlns:th="http://www.thymeleaf.org">
   <a class="active" th:href="@{/main-page}">Home</a>
   <a th:href="@{/tasks}">Tasks List</a>
   <a th:href="@{/categories}">Categories List</a>
-  <a th:href="@{/showFormForUpdate/{id}(id=${user.userId})}">Update my account</a>
-  <a th:href="@{/login}">Log Out</a>
+  <a th:href="@{/viewProfile/{id}(id=${user.userId})}">View Profile</a>
+  <a class="logout-btn" th:href="@{/login}">Log Out</a>
 </div>
 <div class="container my-2">
 
@@ -25,7 +25,6 @@ xmlns:th="http://www.thymeleaf.org">
       <tr>
         <th>ID</th>
         <th>Username</th>
-        <th>Password</th>
         <th>Email</th>
         <th>Create Date</th>
         <th>Tasks</th>
@@ -36,7 +35,6 @@ xmlns:th="http://www.thymeleaf.org">
     <tr th:each="user : ${listUsers}">
       <td th:text="${user.userId}"></td>
       <td th:text="${user.username}"></td>
-      <td th:text="${user.password}"></td>
       <td th:text="${user.email}"></td>
       <td th:text="${user.createdAt}"></td>
       <td>
@@ -57,6 +55,7 @@ xmlns:th="http://www.thymeleaf.org">
 </div>
 
 
+<!--MESSAGE TO CONFIRM DELETION-->
 <script>
   function confirmDelete(element) {
     const url = element.getAttribute('data-url');

@@ -17,16 +17,25 @@ public class mainController {
 
     private final UsersService usersService;
 
+    //CONSTRUCTOR
     @Autowired
     public mainController(UsersService usersService) {
         this.usersService = usersService;
     }
 
+
+
+    //MAIN PAGE
     @GetMapping("/main-page")
     public String mainPage(Principal principal, Model model) {
         String username = principal.getName();
         Users user = usersService.findByUsername(username);
         model.addAttribute("user", user);
-        return "main-page";
+
+        if (user.getRole().equals("ROLE_ADMIN")) {
+            return "main-page";
+        } else {
+            return "main-page-for-users";
+        }
     }
 }

@@ -13,8 +13,8 @@
     <a th:href="@{/users}">Users List</a>
     <a th:href="@{/tasks}">Tasks List</a>
     <a th:href="@{/categories}">Categories List</a>
-    <a th:href="@{/showFormForUpdate/{id}(id=${user.userId})}">Update my account</a>
-    <a th:href="@{/login}">Log Out</a>
+    <a th:href="@{/viewProfile/{id}(id=${user.userId})}">View Profile</a>
+    <a class="logout-btn" th:href="@{/login}">Log Out</a>
 </div>
 <div class="container">
 
@@ -52,6 +52,14 @@
                 <option th:value="${category.categoryId}" th:text="${category.name}"></option>
             </th:block>
         </select>
+
+        <label for="task-user">User:</label>
+        <select id="task-user" th:field="*{user.userId}">
+            <th:block th:each="user : ${users}">
+                <option th:value="${user.userId}" th:text="${user.username}"></option>
+            </th:block>
+        </select>
+
 
         <button type="submit" class="btn btn-info col-2"> Save Task </button>
     </form>

@@ -22,12 +22,16 @@ public class CategoriesController {
 
     private final UsersService usersService;
 
+    //CONSTRUCTOR
     @Autowired
     public CategoriesController(CategoriesService categoryService, UsersService usersService) {
         this.categoryService = categoryService;
         this.usersService = usersService;
     }
 
+
+
+    //LIST OF CATEGORIES
     @GetMapping("/categories")
     public String getCategories(Model model, Principal principal) {
         String username = principal.getName();
@@ -38,6 +42,9 @@ public class CategoriesController {
         return "index-categories";
     }
 
+
+
+    //NEW CATEGORY
     @GetMapping("/showNewCategoryForm")
     public String showNewCategoryForm(Model model, Principal principal) {
         String username = principal.getName();
@@ -54,6 +61,9 @@ public class CategoriesController {
         return "redirect:/categories";
     }
 
+
+
+    //UPDATE
     @GetMapping("/showFormForUpdateCategory/{id}")
     public String showFormForUpdate(@PathVariable Long id, Model model, Principal principal) {
         String username = principal.getName();
@@ -64,6 +74,9 @@ public class CategoriesController {
         return "update-category";
     }
 
+
+
+    //DELETE
     @GetMapping("/deleteCategory/{id}")
     public String deleteCategory(@PathVariable("id") Long id) {
         this.categoryService.deleteCategoryById(id);
